@@ -1,0 +1,286 @@
+{
+  "project": {
+    "name": "ecommerce-api",
+    "framework": "spring-boot",
+    "version": "3.2.0",
+    "build_tool": "maven",
+    "multi_module": false
+  },
+  "services": {
+    "detected": ["h2", "redis", "kafka"],
+    "reactive": false
+  },
+  "security": {
+    "enabled": false,
+    "type": null,
+    "auth_method": null,
+    "secured_endpoints_count": 0
+  },
+  "existing_test_infrastructure": {
+    "base_test_class": null,
+    "base_test_path": null,
+    "test_profile": null,
+    "embedded_services": []
+  },
+  "rest_endpoints": [
+    {
+      "controller": "ProductController.java",
+      "controller_path": "src/main/java/com/example/ecommerce/controller/ProductController.java",
+      "package": "com.example.ecommerce.controller",
+      "methods": [
+        {
+          "name": "getAllProducts",
+          "http_method": "GET",
+          "path": "/api/products",
+          "parameters": [],
+          "security": null,
+          "status": "NO_TEST",
+          "existing_test": null
+        },
+        {
+          "name": "getProductById",
+          "http_method": "GET",
+          "path": "/api/products/{id}",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "Long",
+              "location": "path",
+              "required": true
+            }
+          ],
+          "security": null,
+          "status": "NO_TEST",
+          "existing_test": null
+        },
+        {
+          "name": "createProduct",
+          "http_method": "POST",
+          "path": "/api/products",
+          "parameters": [
+            {
+              "name": "product",
+              "type": "Product",
+              "location": "body",
+              "required": true,
+              "validation": {
+                "name": ["@NotBlank", "@Size(min=2, max=100)"],
+                "price": ["@NotNull", "@DecimalMin(\"0.01\")"],
+                "stock": ["@Min(0)"]
+              }
+            }
+          ],
+          "security": null,
+          "status": "NO_TEST",
+          "existing_test": null
+        },
+        {
+          "name": "updateProduct",
+          "http_method": "PUT",
+          "path": "/api/products/{id}",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "Long",
+              "location": "path",
+              "required": true
+            },
+            {
+              "name": "product",
+              "type": "Product",
+              "location": "body",
+              "required": true,
+              "validation": {
+                "name": ["@NotBlank", "@Size(min=2, max=100)"],
+                "price": ["@NotNull", "@DecimalMin(\"0.01\")"],
+                "stock": ["@Min(0)"]
+              }
+            }
+          ],
+          "security": null,
+          "status": "NO_TEST",
+          "existing_test": null
+        },
+        {
+          "name": "deleteProduct",
+          "http_method": "DELETE",
+          "path": "/api/products/{id}",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "Long",
+              "location": "path",
+              "required": true
+            }
+          ],
+          "security": null,
+          "status": "NO_TEST",
+          "existing_test": null
+        }
+      ],
+      "dependencies": {
+        "services": [
+          {
+            "class": "ProductService",
+            "path": "src/main/java/com/example/ecommerce/service/ProductService.java",
+            "type": "implementation",
+            "level": 1
+          },
+          {
+            "class": "CacheService",
+            "path": "src/main/java/com/example/ecommerce/service/CacheService.java",
+            "type": "implementation",
+            "level": 2,
+            "called_by": "ProductService"
+          },
+          {
+            "class": "EventPublisher",
+            "path": "src/main/java/com/example/ecommerce/service/EventPublisher.java",
+            "type": "implementation",
+            "level": 2,
+            "called_by": "ProductService"
+          }
+        ],
+        "models": [
+          {
+            "class": "Product",
+            "path": "src/main/java/com/example/ecommerce/model/Product.java",
+            "usage": "return_type"
+          }
+        ],
+        "repositories": [
+          {
+            "class": "ProductRepository",
+            "path": "src/main/java/com/example/ecommerce/repository/ProductRepository.java",
+            "type": "interface",
+            "level": 2
+          }
+        ],
+        "utilities": [],
+        "max_depth": 2
+      }
+    },
+    {
+      "controller": "OrderController.java",
+      "controller_path": "src/main/java/com/example/ecommerce/controller/OrderController.java",
+      "package": "com.example.ecommerce.controller",
+      "methods": [
+        {
+          "name": "getAllOrders",
+          "http_method": "GET",
+          "path": "/api/orders",
+          "parameters": [],
+          "security": null,
+          "status": "NO_TEST",
+          "existing_test": null
+        },
+        {
+          "name": "getOrderById",
+          "http_method": "GET",
+          "path": "/api/orders/{id}",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "Long",
+              "location": "path",
+              "required": true
+            }
+          ],
+          "security": null,
+          "status": "NO_TEST",
+          "existing_test": null
+        },
+        {
+          "name": "createOrder",
+          "http_method": "POST",
+          "path": "/api/orders",
+          "parameters": [
+            {
+              "name": "order",
+              "type": "Order",
+              "location": "body",
+              "required": true,
+              "validation": {
+                "customerEmail": ["@NotBlank", "@Email"],
+                "productId": ["@NotNull"],
+                "quantity": ["@Min(1)"],
+                "totalAmount": ["@NotNull"]
+              }
+            }
+          ],
+          "security": null,
+          "status": "NO_TEST",
+          "existing_test": null
+        }
+      ],
+      "dependencies": {
+        "services": [
+          {
+            "class": "OrderService",
+            "path": "src/main/java/com/example/ecommerce/service/OrderService.java",
+            "type": "implementation",
+            "level": 1
+          },
+          {
+            "class": "ProductService",
+            "path": "src/main/java/com/example/ecommerce/service/ProductService.java",
+            "type": "implementation",
+            "level": 2,
+            "called_by": "OrderService"
+          },
+          {
+            "class": "PaymentClient",
+            "path": "src/main/java/com/example/ecommerce/service/PaymentClient.java",
+            "type": "implementation",
+            "level": 2,
+            "called_by": "OrderService"
+          },
+          {
+            "class": "EventPublisher",
+            "path": "src/main/java/com/example/ecommerce/service/EventPublisher.java",
+            "type": "implementation",
+            "level": 2,
+            "called_by": "OrderService"
+          }
+        ],
+        "models": [
+          {
+            "class": "Order",
+            "path": "src/main/java/com/example/ecommerce/model/Order.java",
+            "usage": "return_type"
+          },
+          {
+            "class": "Product",
+            "path": "src/main/java/com/example/ecommerce/model/Product.java",
+            "usage": "dependency"
+          }
+        ],
+        "repositories": [
+          {
+            "class": "OrderRepository",
+            "path": "src/main/java/com/example/ecommerce/repository/OrderRepository.java",
+            "type": "interface",
+            "level": 2
+          },
+          {
+            "class": "ProductRepository",
+            "path": "src/main/java/com/example/ecommerce/repository/ProductRepository.java",
+            "type": "interface",
+            "level": 3,
+            "called_by": "ProductService"
+          }
+        ],
+        "utilities": [],
+        "max_depth": 3
+      }
+    }
+  ],
+  "statistics": {
+    "total_endpoints": 8,
+    "no_test": 8,
+    "has_unit_test_only": 0,
+    "has_integration_test": 0,
+    "integration_tests_needed": 8,
+    "coverage_percentage": 0.0
+  }
+}

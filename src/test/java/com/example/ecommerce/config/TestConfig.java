@@ -9,8 +9,8 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
-@Profile("!test")
-public class AppConfig {
+@Profile("test")
+public class TestConfig {
     
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
