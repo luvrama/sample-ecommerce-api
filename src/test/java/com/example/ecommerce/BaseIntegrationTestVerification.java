@@ -3,7 +3,7 @@ package com.example.ecommerce;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class BaseIntegrationTestVerification extends BaseIntegrationTest {
+class BaseIntegrationTestVerificationTest extends BaseIntegrationTest {
     
     @Test
     void verifyApplicationStarts() {

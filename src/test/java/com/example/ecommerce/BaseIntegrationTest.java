@@ -6,6 +6,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.kafka.test.EmbeddedKafkaBroker;
 import org.junit.jupiter.api.BeforeEach;
 import redis.embedded.RedisServer;
 import org.junit.jupiter.api.AfterAll;
@@ -44,6 +45,9 @@ public abstract class BaseIntegrationTest {
     
     @Autowired
     protected DataSource dataSource;
+    
+    @Autowired
+    protected EmbeddedKafkaBroker embeddedKafka;
     
     @BeforeAll
     static void startEmbeddedServices() throws Exception {

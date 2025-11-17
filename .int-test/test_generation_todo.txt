@@ -2,16 +2,16 @@
 # Created: 2024-12-19 15:30:00
 # Total tests: 8
 
-[~] ProductControllerIntegrationTest.java - GENERATED
+[✓] ProductControllerIntegrationTest.java - PASSED (20.8s)
     Endpoint: All Product endpoints
     Package: com.example.ecommerce.controller
     Source: src/main/java/com/example/ecommerce/controller/ProductController.java
     Test methods: 7
-    Status: GENERATED
+    Status: PASSED
 
-[~] OrderControllerIntegrationTest.java - GENERATED
+[✓] OrderControllerIntegrationTest.java - PASSED (10.3s)
     Endpoint: All Order endpoints
     Package: com.example.ecommerce.controller
     Source: src/main/java/com/example/ecommerce/controller/OrderController.java
-    Test methods: 5
-    Status: GENERATED
+    Test methods: 6
+    Status: PASSED
